@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Seismic Spotlight</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap');
+    :root {
+      --main-gradient: linear-gradient(135deg, #f9e9dd 0%, #e5d3be 100%);
+      --main-color: #b8a97e;
+      --main-color-soft: #e5d3be;
+      --title-shadow: 0 4px 24px rgba(110,90,60,0.16);
+      --text: #544927;
+      --hover-bg: rgba(240,220,191,0.97);
+      --footer-bg: #f5ead0ee;
+      --footer-fg: #75613f;
+    }
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100vh;
+      font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+      background: var(--main-gradient);
+      overflow-x: hidden;
+      color: var(--text);
+      transition: background 1s;
+    }
+    .main-title {
+      font-size: 2.7em;
+      font-weight: 700;
+      text-align: center;
+      color: var(--main-color);
+      margin-top: 32px;
+      margin-bottom: 56px;
+      text-shadow: var(--title-shadow);
+      letter-spacing: 0.08em;
+      user-select: none;
+    }
+    .floating {
+      position: fixed;
+      will-change: transform;
+      pointer-events: none;
+      z-index: 1200;
+      width: 46px;
+      height: 46px;
+      opacity: 0.92;
+      filter: drop-shadow(0px 2px 12px rgba(120,98,51,0.12));
+      transition: opacity 1s;
+    }
+    .modal-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 242, 223, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1600;
+      animation: modalfadeIn 1.1s;
+    }
+    @keyframes modalfadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .modal {
+      background: var(--main-color-soft);
+      border-radius: 22px;
+      box-shadow: 0 8px 38px 6px rgba(155,132,96,0.13);
+      min-width:320px; 
+      max-width:90vw;
+      padding: 32px 38px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(40px) scale(0.98);
+      animation: modalfade 1.1s 0.6s forwards;
+    }
+    @keyframes modalfade {
+      to {opacity:1; transform:translateY(0) scale(1);}
+    }
+    .modal-title {
+      font-size: 1.5em;
+      color: var(--main-color);
+      margin-bottom:18px;
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+    .modal-btn {
+      margin-top:25px;
+      background: var(--main-gradient);
+      color: var(--text);
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      padding: 13px 44px;
+      font-size: 1.1em;
+      box-shadow: 0 2px 12px #dfc7a6a8;
+      transition: background .18s, color .18s, transform .15s;
+      cursor: pointer;
+    }
+    .modal-btn:hover {
+      background: linear-gradient(99deg, #d4c1a6 0%, #e7dbb7 100%);
+      transform: scale(1.03);
+    }
+
+    .gallery-section {
+      display: none;
+      padding: 40px 20px 90px 20px;
+      max-width: 1550px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 38px 32px;
+      align-items: flex-start;
+      position: relative;
+      min-height: 800px;
+    }
+    
+    .gallery-img-container {
+      position: relative;
+      box-sizing: border-box;
+      margin: 0;
+      animation: galleryAppear 1.2s cubic-bezier(.6,-0.04,.5,1.16);
+      opacity: 0;
+      transform: translateY(40px) scale(0.97);
+      animation-fill-mode: forwards;
+      border-radius: 18px;
+      overflow: visible;
+      transition: box-shadow .3s;
+      z-index: 1;
+      will-change: transform;
+    }
+    @keyframes galleryAppear {
+      to { opacity: 1; transform: translateY(0) scale(1);}
+    }
+    .gallery-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 18px;
+      box-shadow: 0 4px 28px 3px #cbb78d29;
+      cursor: pointer;
+      transition: box-shadow 0.2s, transform 0.14s;
+      display: block;
+      z-index: 1;
+      position: relative;
+      background: #e6dcc1;
+    }
+    .gallery-img-container:hover,
+    .gallery-img-container:focus-within {
+      box-shadow: 0 12px 54px 10px #c0b18b46;
+      z-index: 10;
+    }
+    .gallery-img-container:hover .gallery-img {
+      box-shadow: 0 10px 35px 8px #c6b08041;
+      transform: scale(1.04);
+      filter: brightness(0.78);
+      z-index: 9;
+    }
+    .gallery-tooltip {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      width: 100%; height: 100%;
+      background: rgba(240,220,191,0.95);
+      color: var(--text);
+      font-size: 1em;
+      border-radius: 18px;
+      box-shadow: 0 8px 44px #cbb78d53;
+      font-weight: 600;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s;
+      z-index: 20;
+      text-align: center;
+      padding: 13px 10px;
+      box-sizing: border-box;
+    }
+    .gallery-img-container:hover .gallery-tooltip,
+    .gallery-img-container:focus-within .gallery-tooltip {
+      display: flex;
+      opacity: 1;
+      visibility: visible;
+      animation: tooltipfade 0.28s;
+    }
+    .gallery-tooltip a {
+      color: #7a631b;
+      text-decoration: underline;
+      word-break: break-all;
+      font-size: 1.04em;
+      font-weight: 700;
+    }
+    @keyframes tooltipfade {
+      from { opacity: 0;}
+      to   { opacity: 1;}
+    }
+
+    
+    .gallery-img-container {
+      transition: box-shadow 0.3s, z-index 0.2s;
+    }
+    
+    .gallery-img-container.masonry-big {
+      width: 270px;
+      height: 360px;
+    }
+    .gallery-img-container.masonry-sm {
+      width: 190px;
+      height: 260px;
+    }
+    
+    .site-footer {
+      width: 100vw;
+      max-width: 100%;
+      padding: 36px 0 28px 0;
+      background: var(--footer-bg);
+      color: var(--footer-fg);
+      text-align: center;
+      font-size: 1.17em;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      box-shadow: 0 0 40px 0 #cabfa36d;
+      margin-top: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .6s cubic-bezier(.44,.52,.22,.99);
+      position: relative;
+      z-index: 44;
+      border-top-left-radius: 34px;
+      border-top-right-radius: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 70px;
+      margin-bottom: 0;
+      user-select: text;
+    }
+    .site-footer.visible {
+      opacity: 1;
+      pointer-events: auto;
+      margin-top: 22px;
+    }
+    .site-footer a {
+      color: #886211;
+      text-decoration: underline;
+      font-weight: 700;
+      font-size: 1.1em;
+      margin-left: 4px;
+    }
+    @media (max-width: 700px) {
+      .site-footer {
+        font-size: 0.97em;
+        border-radius: 20px 20px 0 0;
+        padding: 25px 2vw 22px 2vw;
+      }
+    }
+    @media (max-width: 460px) {
+      .site-footer {
+        padding: 13px 1vw 9px 1vw;
+        font-size: 0.92em;
+      }
+    }
+    
+    @media (max-width: 1400px) {
+      .gallery-section { max-width:99vw; gap:28px 12px; }
+      .gallery-img-container.masonry-big {width:220px; height:300px;}
+      .gallery-img-container.masonry-sm {width:140px; height:190px;}
+    }
+    @media (max-width: 900px) {
+      .gallery-section {max-width:99vw; gap:14px 7px;}
+      .gallery-img-container.masonry-big {width:48vw; height:28vw;}
+      .gallery-img-container.masonry-sm {width:38vw; height:21vw;}
+    }
+    @media (max-width: 600px) {
+      .main-title { font-size: 2em; }
+      .gallery-section{flex-direction:column;gap:11px;}
+      .gallery-img-container.masonry-big, .gallery-img-container.masonry-sm {
+        width:94vw !important; height: auto !important; min-height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-title">Seismic Spotlight</div>
+  <div id="floating-container"></div>
+  <div class="modal-bg" id="welcomeModal">
+    <div class="modal">
+      <div class="main-title" style="font-size: 1.5em; margin-bottom: 10px;">Seismic Spotlight</div>
+      <button class="modal-btn" onclick="hideIntro()">Enter Site ↓</button>
+    </div>
+  </div>
+  <div id="main-gallery" class="gallery-section"></div>
+  
+  <div id="footer-placeholder"></div>
+  <script>
+    const floatImgs = ['1.png', '2.png', '3.png', '4.png'];
+    const FLOAT_COUNT = 40;
+    const floatingEls = [];
+    function makeFloatingImgs() {
+      const box = document.getElementById('floating-container');
+      box.innerHTML = '';
+      for (let i = 0; i < FLOAT_COUNT; ++i) {
+        let img = document.createElement('img');
+        img.src = floatImgs[Math.floor(Math.random() * floatImgs.length)];
+        img.className = 'floating';
+        let x = Math.random() * window.innerWidth,
+          y = Math.random() * window.innerHeight * 0.8,
+          angle = Math.random() * Math.PI * 2;
+        let speed = 0.18 + Math.random() * 0.21;
+        floatingEls.push({ el: img, x, y, angle, speed, dx: Math.cos(angle) * speed, dy: Math.sin(angle) * speed });
+        box.appendChild(img);
+      }
+    }
+    function moveFloating() {
+      for (const obj of floatingEls) {
+        obj.x += obj.dx;
+        obj.y += obj.dy;
+        if (obj.x < 0 || obj.x > window.innerWidth - 50) obj.dx *= -1;
+        if (obj.y < 0 || obj.y > window.innerHeight - 50) obj.dy *= -1;
+        obj.el.style.transform = `translate(${obj.x}px,${obj.y}px)`;
+      }
+      if (window.__showFloating) requestAnimationFrame(moveFloating);
+    }
+    window.__showFloating = true;
+    makeFloatingImgs();
+    moveFloating();
+
+    function showFooter() {
+      let footer = document.getElementById('site-footer');
+      if (!footer) {
+        footer = document.createElement('footer');
+        footer.id = 'site-footer';
+        footer.className = 'site-footer';
+        footer.innerHTML = `Yo, if you want your work to be added to this site then just DM me - <a href="https://x.com/realsirandrew" target="_blank">realsir</a>.`;
+        document.getElementById('footer-placeholder').appendChild(footer);
+        
+        setTimeout(() => {footer.classList.add('visible')}, 100);
+      } else {
+        footer.classList.add('visible');
+      }
+    }
+
+    function hideIntro() {
+      document.getElementById('welcomeModal').style.display = 'none';
+      for (let { el } of floatingEls) el.style.opacity = 0;
+      window.__showFloating = false;
+      setTimeout(() => {
+        document.getElementById('floating-container').remove();
+        startGallery();
+      }, 900);
+    }
+
+    
+    const galleryData = [
+      { img: 's1.png', link: 'https://x.com/Amukreksa/status/1947473679958610280' },
+      { img: 's2.png', link: 'https://x.com/rivalbahti72821/status/1947347416556179605?s=46' },
+      { img: 's3.png', link: 'https://x.com/Hijiduatilu12/status/1945986788948095285' },
+      { img: 's4.png', link: 'https://x.com/marvoloart/status/1946885837192565189' },
+      { img: 's5.png', link: 'https://x.com/Boulevard1823/status/1945426388762116413' },
+      { img: 's6.png', link: 'https://x.com/hieu06730313/status/1943269751150776375' },
+      { img: 's7.png', link: 'https://x.com/Hinz5522/status/1939621541953613831' },
+      { img: 's8.png', link: 'https://x.com/0xlkurosaki/status/1943860608258257036?s=46' },
+      { img: 's9.png', link: 'https://x.com/villaiiiin/status/1942591818056786137' },
+      { img: 's10.png', link: 'https://x.com/xiaoqingling98/status/1940764691749654887' },
+      { img: 's11.png', link: 'https://x.com/tduy240201/status/1942583240898064422?s=46' },
+      { img: 's12.png', link: 'https://x.com/MerriDollislove/status/1942297834763518179' },
+      { img: 's13.png', link: 'https://x.com/emptystdotcom/status/1940263305404367294' },
+      { img: 's14.png', link: 'https://x.com/RapunzelPn1/status/1941519254098149708' },
+      { img: 's15.png', link: 'https://x.com/metaradon64/status/1941471478702276996?s=46' },
+      { img: 's16.png', link: 'https://x.com/Jull998/status/1940746097321738419' },
+      { img: 's17.png', link: 'https://x.com/Prateek0102/status/1940465041763192892' },
+      { img: 's18.png', link: 'https://x.com/alyosha_kara/status/1940017170349518928' },
+      { img: 's19.png', link: 'https://x.com/dzulfanfajriiii/status/1940020556784349493' },
+      { img: 's20.png', link: 'https://x.com/ALFACREATIVE33/status/1937389625187631568' },
+      { img: 's21.png', link: 'https://x.com/emptystdotcom/status/1937539210506117362' },
+      { img: 's22.png', link: 'https://x.com/dosunets_/status/1938680098523169210' },
+      { img: 's23.png', link: 'https://x.com/0xlKurosaki/status/1937472436255195311' },
+      { img: 's24.png', link: 'https://x.com/bestie_ell/status/1936442959051755984' },
+      { img: 's25.png', link: 'https://x.com/dangtruong4421/status/1934535648347906251' },
+      { img: 's26.png', link: 'https://x.com/dzulfanfajriiii/status/1935340505245929762' },
+      { img: 's27.png', link: 'https://x.com/marvoloart/status/1934622023877317038' },
+      { img: 's28.png', link: 'https://x.com/lon3ly38/status/1933515164437164257?s=46' },
+      { img: 's29.png', link: 'https://x.com/tommyblinder_/status/1933179524054946256' },
+      { img: 's30.png', link: 'https://x.com/Boo3_14/status/1933153836547416509?t=ltIY5Ra_wVELcO-SIRCsXA&s=19' },
+      { img: 's31.png', link: 'https://x.com/indrarg77/status/1931388498801803516' },
+      { img: 's32.png', link: 'https://x.com/Yogaa011/status/1930119015126679995' },
+      { img: 's33.png', link: 'https://x.com/V7musyo/status/1929998940465967598' },
+      { img: 's34.png', link: 'https://x.com/Prateek0102/status/1928574457729175740' },
+      { img: 's35.png', link: 'https://x.com/0xkingdy/status/1927470823461339563' }
+    ];
+
+    function startGallery() {
+      const gallery = document.getElementById('main-gallery');
+      gallery.innerHTML = '';
+      gallery.style.display = 'flex';
+
+      
+      const colCount = window.innerWidth < 900 ? 2 : (window.innerWidth < 1400 ? 3 : 5);
+      const columns = Array.from({ length: colCount }, () => []);
+      galleryData.forEach((item, idx) => {
+        
+        let isBig = (idx % 7 === 0) || ((idx+3) % 7 === 0);
+        let extraOffset = (Math.random() > 0.5) ? 18 * ((idx%3)-1) : 0;
+        
+        let minColIdx = columns
+          .map(col => col.reduce((acc, o) => acc + (o.height || 300), 0))
+          .reduce((minIdx, val, i, arr) => val < arr[minIdx] ? i : minIdx, 0);
+        columns[minColIdx].push({
+          html: `
+            <div class="gallery-img-container ${isBig ? 'masonry-big' : 'masonry-sm'}" 
+                 style="animation-delay:${0.10 * idx + 0.23}s; transform:translateY(${extraOffset}px);">
+              <img src="${item.img}" alt="Seismic image ${idx+1}" class="gallery-img" tabindex="0" />
+              <div class="gallery-tooltip">
+                Link to support: <a href="${item.link}" target="_blank" rel="noopener noreferrer">tweet</a>
+              </div>
+            </div>`,
+          height: isBig ? 360 : 210
+        });
+      });
+      
+      columns.forEach(col => {
+        const colDiv = document.createElement('div');
+        colDiv.style.display = 'flex';
+        colDiv.style.flexDirection = 'column';
+        colDiv.style.gap = '36px';
+        colDiv.style.flex = '1 1 0%';
+        colDiv.innerHTML = col.map(obj => obj.html).join('');
+        gallery.appendChild(colDiv);
+      });
+
+      
+      showFooter();
+
+      setTimeout(() => { gallery.scrollIntoView({ behavior: 'smooth' }); }, 220);
+    }
+
+    window.addEventListener('resize', () => {
+      if (window.__showFloating) {
+        floatingEls.forEach(f => {
+          f.x = Math.min(f.x, window.innerWidth - 50);
+          f.y = Math.min(f.y, window.innerHeight - 50);
+        });
+      }
+    });
+
+    document.getElementById('welcomeModal')
+      .addEventListener('wheel', e => e.preventDefault(), { passive: false });
+  </script>
+</body>
+</html>
