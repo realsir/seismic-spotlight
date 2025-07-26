@@ -102,7 +102,6 @@
       background: linear-gradient(99deg, #d4c1a6 0%, #e7dbb7 100%);
       transform: scale(1.03);
     }
-
     .gallery-section {
       display: none;
       padding: 40px 20px 90px 20px;
@@ -115,7 +114,6 @@
       position: relative;
       min-height: 800px;
     }
-    
     .gallery-img-container {
       position: relative;
       box-sizing: border-box;
@@ -140,78 +138,41 @@
       border-radius: 18px;
       box-shadow: 0 4px 28px 3px #cbb78d29;
       cursor: pointer;
-      transition: box-shadow 0.2s, transform 0.14s;
+      transition: box-shadow 0.2s, transform 0.14s, filter 0.18s;
       display: block;
       z-index: 1;
       position: relative;
       background: #e6dcc1;
+      /* Removal of pointer-events: none; - all link area is clickable */
+    }
+    .gallery-img-link {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      transition: box-shadow .3s;
     }
     .gallery-img-container:hover,
     .gallery-img-container:focus-within {
       box-shadow: 0 12px 54px 10px #c0b18b46;
       z-index: 10;
     }
-    .gallery-img-container:hover .gallery-img {
+    .gallery-img-link:hover .gallery-img,
+    .gallery-img-link:focus .gallery-img {
+      filter: blur(1.5px) brightness(0.95);
       box-shadow: 0 10px 35px 8px #c6b08041;
       transform: scale(1.04);
-      filter: brightness(0.78);
       z-index: 9;
     }
+    /* Remove the tooltip styles entirely */
     .gallery-tooltip {
-      pointer-events: auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      width: 100%; height: 100%;
-      background: rgba(240,220,191,0.95);
-      color: var(--text);
-      font-size: 1em;
-      border-radius: 18px;
-      box-shadow: 0 8px 44px #cbb78d53;
-      font-weight: 600;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.25s;
-      z-index: 20;
-      text-align: center;
-      padding: 13px 10px;
-      box-sizing: border-box;
+      display: none !important;
     }
-    .gallery-img-container:hover .gallery-tooltip,
-    .gallery-img-container:focus-within .gallery-tooltip {
-      display: flex;
-      opacity: 1;
-      visibility: visible;
-      animation: tooltipfade 0.28s;
-    }
-    .gallery-tooltip a {
-      color: #7a631b;
-      text-decoration: underline;
-      word-break: break-all;
-      font-size: 1.04em;
-      font-weight: 700;
-    }
-    @keyframes tooltipfade {
-      from { opacity: 0;}
-      to   { opacity: 1;}
-    }
-
-    
-    .gallery-img-container {
-      transition: box-shadow 0.3s, z-index 0.2s;
-    }
-    
-    .gallery-img-container.masonry-big {
-      width: 270px;
-      height: 360px;
-    }
-    .gallery-img-container.masonry-sm {
-      width: 190px;
-      height: 260px;
-    }
-    
+    .gallery-img-container { transition: box-shadow 0.3s, z-index 0.2s; }
+    .gallery-img-container.masonry-big { width: 270px; height: 360px; }
+    .gallery-img-container.masonry-sm { width: 190px; height: 260px; }
     .site-footer {
       width: 100vw;
       max-width: 100%;
@@ -264,7 +225,6 @@
         font-size: 0.92em;
       }
     }
-    
     @media (max-width: 1400px) {
       .gallery-section { max-width:99vw; gap:28px 12px; }
       .gallery-img-container.masonry-big {width:220px; height:300px;}
@@ -294,7 +254,6 @@
     </div>
   </div>
   <div id="main-gallery" class="gallery-section"></div>
-  
   <div id="footer-placeholder"></div>
   <script>
     const floatImgs = ['1.png', '2.png', '3.png', '4.png'];
@@ -337,7 +296,6 @@
         footer.className = 'site-footer';
         footer.innerHTML = `Yo, if you want your work to be added to this site then just DM me - <a href="https://x.com/realsirandrew" target="_blank">realsir</a>.`;
         document.getElementById('footer-placeholder').appendChild(footer);
-        
         setTimeout(() => {footer.classList.add('visible')}, 100);
       } else {
         footer.classList.add('visible');
@@ -354,7 +312,6 @@
       }, 900);
     }
 
-    
     const galleryData = [
       { img: 's1.png', link: 'https://x.com/Amukreksa/status/1947473679958610280' },
       { img: 's2.png', link: 'https://x.com/rivalbahti72821/status/1947347416556179605?s=46' },
@@ -390,38 +347,104 @@
       { img: 's32.png', link: 'https://x.com/Yogaa011/status/1930119015126679995' },
       { img: 's33.png', link: 'https://x.com/V7musyo/status/1929998940465967598' },
       { img: 's34.png', link: 'https://x.com/Prateek0102/status/1928574457729175740' },
-      { img: 's35.png', link: 'https://x.com/0xkingdy/status/1927470823461339563' }
+      { img: 's35.png', link: 'https://x.com/0xkingdy/status/1927470823461339563' },
+      { img: 's36.png', link: 'https://x.com/ViktorSerov14/status/1949098607606452368' },
+      { img: 's37.png', link: 'https://x.com/Misscynthia102/status/1949097524460921087?t=OJ6XnI5Utl7hF_fMvMf5uA&s=19' },
+      { img: 's38.png', link: 'https://x.com/Wikodo_/status/1949086757074636810' },
+      { img: 's39.png', link: 'https://x.com/LuisGar03165053/status/1949084833470435440' },
+      { img: 's40.png', link: 'https://x.com/nakann23/status/1949071557021856012?s=46&t=iitHdxG_apE47BlIbw2Cng' },
+      { img: 's41.png', link: 'https://x.com/rahmansial477/status/1949067733364088888?t=W207mb1chs5cXWRbsMT_7Q&s=19' },
+      { img: 's42.png', link: 'https://x.com/yuvn789/status/1949064081719308635' },
+      { img: 's43.png', link: 'https://x.com/rogalev_lion/status/1949042478406910404' },
+      { img: 's44.png', link: 'https://x.com/QucVitN93303988/status/1949042448577278111' },
+      { img: 's45.png', link: 'https://x.com/oxdfahmadd/status/1949037375411364155?s=61' },
+      { img: 's46.png', link: 'https://x.com/oggy_og3/status/1949034081880347039' },
+      { img: 's47.png', link: 'https://x.com/bestxml007/status/1949033882134675966' },
+      { img: 's48.png', link: 'https://x.com/villaiiiin/status/1949033570049351935?s=46' },
+      { img: 's49.png', link: 'https://x.com/coachBlackSrShe/status/1949033394798522794?t=PtNQc4eji-K9NYM704aBrg&s=19' },
+      { img: 's50.png', link: 'https://x.com/blanca7197/status/1949032042189979921?s=46' },
+      { img: 's51.png', link: 'https://x.com/jayyidinn/status/1949030849196052927?s=61' },
+      { img: 's52.png', link: 'https://x.com/ofwassupp/status/1949028642991858154' },
+      { img: 's53.png', link: 'https://x.com/popelkak51976/status/1949024488554987552?s=46' },
+      { img: 's54.png', link: 'https://x.com/shanvii27/status/1949016614529015878?t=jFqnmR3-Sf35yPAAUM92Ag&s=19' },
+      { img: 's55.png', link: 'https://x.com/cepirit25/status/1949008273749012749?s=46' },
+      { img: 's56.png', link: 'https://x.com/IbraMov85729308/status/1949007220454371476?t=it7cYOT1Swn6P3X5Ew5wFA&s=19' },
+      { img: 's57.png', link: 'https://x.com/Boulevard1823/status/1948999247375765779?t=tgFcHvJMavmpgg_PRk7ccA&s=19' },
+      { img: 's58.png', link: 'https://x.com/ArchanistETH/status/1948998030599790927?t=Jd_0bmQHLwutEiWFWFvW5A&s=19' },
+      { img: 's59.png', link: 'https://x.com/luzzyzz97/status/1948983252318097848' },
+      { img: 's60.png', link: 'https://x.com/oxlicious/status/1948981900866924763?t=x6STwd1ueTqU5BP_JPh0kw&s=19' },
+      { img: 's61.png', link: 'https://x.com/Lon3ly38/status/1948961400925421643' },
+      { img: 's62.png', link: 'https://x.com/domhales12/status/1948951583007670344?s=19' },
+      { img: 's63.png', link: 'https://x.com/MaulanaRizkiAp1/status/1948945369293094926?t=xtq5B8xOmZ288M-oZiY2cQ&s=19' },
+      { img: 's64.png', link: 'https://x.com/Hinz5522/status/1948932346239221979' },
+      { img: 's65.png', link: 'https://x.com/RahmanKunnnnn/status/1948756730399350909' },
+      { img: 's66.png', link: 'https://x.com/AsofBahrud50909/status/1948918047189663959?t=_q3GcB7wnHU82ZjsWRmW6A&s=19' },
+      { img: 's67.png', link: 'https://x.com/andiimawan007/status/1948914630212157727' },
+      { img: 's68.png', link: 'https://x.com/Ijalbiasalah07/status/1948840450154267060' },
+      { img: 's69.png', link: 'https://x.com/_darketh/status/1948836439451730316?s=46' },
+      { img: 's70.png', link: 'https://x.com/0xdzul99/status/1948825880601805025' },
+      { img: 's71.png', link: 'https://x.com/cryptozen99/status/1948821145051963620' },
+      { img: 's72.png', link: 'https://x.com/Damir6080795291/status/1948820737365868848?t=ache82SZmt1UXQGZsZfX8w&s=19' },
+      { img: 's73.png', link: 'https://x.com/volG1142981/status/1948820806500581887' },
+      { img: 's74.png', link: 'https://x.com/ArturSHRK/status/1948800829441687791' },
+      { img: 's75.png', link: 'https://x.com/0x_axle/status/1948795366293360726?t=Va871u0ZALYwagMDvk91oA&s=19' },
+      { img: 's76.png', link: 'https://x.com/KumalaXduck/status/1948793345226277094' },
+      { img: 's77.png', link: 'https://x.com/harddeki/status/1948787234808738042' },
+      { img: 's78.png', link: 'https://x.com/LuisGar03165053/status/1948786376272740680' },
+      { img: 's79.png', link: 'https://x.com/tranam_/status/1948783752072888412?t=oLaykXfjd9ZgSVrssGJvIg&s=19' },
+      { img: 's80.png', link: 'https://x.com/0xtosh1/status/1948765683958829230?t=rvWjOZsAQQ0gz4TurZJajw&s=19' },
+      { img: 's81.png', link: 'https://x.com/OrangeCryptoCat/status/1948768809562648751' },
+      { img: 's82.png', link: 'https://x.com/relifia21/status/1948767722088890405?t=WvPvjulpPAf3ifUQwNosvw&s=19' },
+      { img: 's83.png', link: 'https://x.com/hoangtan99/status/1948752544748241103' },
+      { img: 's84.png', link: 'https://x.com/retzjios/status/1948750661614796852' },
+      { img: 's85.png', link: 'https://x.com/Tydakcool/status/1948744807654047816?t=tYDqMdeqfM0LD395TRl7Dg&s=19' },
+      { img: 's86.png', link: 'https://x.com/maannvreich/status/1948736846831268141?t=X1tC95QFjrho-CBoyX2dxw&s=19' },
+      { img: 's87.png', link: 'https://x.com/subinjung131/status/1948729730964095126' },
+      { img: 's88.png', link: 'https://x.com/luckywhale23/status/1948727085775872081' },
+      { img: 's89.png', link: 'https://x.com/berlin_cao/status/1948718580997960132?t=5TED2rJhEMx_Hz2IYPKIpQ&s=19' },
+      { img: 's90.png', link: 'https://x.com/Penwest2503/status/1948714684355424756?t=cq-ZjgFaF0BfUWekzzX0Xw&s=19' },
+      { img: 's91.png', link: 'https://x.com/Maakss_Hraabaar/status/1948706170996175149' },
+      { img: 's92.png', link: 'https://x.com/LuisGar03165053/status/1948667807174197704' },
+      { img: 's93.png', link: 'https://x.com/anna000_bel/status/1948655897640657213' },
+      { img: 's94.png', link: 'https://x.com/thoai6sixx/status/1948639376575266850' },
+      { img: 's95.png', link: 'https://x.com/dangtruong4421/status/1948635628708790454' },
+      { img: 's96.png', link: 'https://x.com/0xDexter_Morgan/status/1948635042885849575' },
+      { img: 's97.png', link: 'https://x.com/nakann23/status/1948633512279765324?s=46&t=iitHdxG_apE47BlIbw2Cng' },
+      { img: 's98.png', link: 'https://x.com/gratss31/status/1948557964237045826?s=46' },
+      { img: 's99.png', link: 'https://x.com/badjonone/status/1948610599656849464' },
+      { img: 's100.png', link: 'https://x.com/Ijalbiasalah07/status/1948593590370009377' }
     ];
 
+    // --- Новый вариант функции для row-wise генерации ---
     function startGallery() {
       const gallery = document.getElementById('main-gallery');
       gallery.innerHTML = '';
       gallery.style.display = 'flex';
 
-      
       const colCount = window.innerWidth < 900 ? 2 : (window.innerWidth < 1400 ? 3 : 5);
       const columns = Array.from({ length: colCount }, () => []);
-      galleryData.forEach((item, idx) => {
-        
-        let isBig = (idx % 7 === 0) || ((idx+3) % 7 === 0);
-        let extraOffset = (Math.random() > 0.5) ? 18 * ((idx%3)-1) : 0;
-        
-        let minColIdx = columns
-          .map(col => col.reduce((acc, o) => acc + (o.height || 300), 0))
-          .reduce((minIdx, val, i, arr) => val < arr[minIdx] ? i : minIdx, 0);
-        columns[minColIdx].push({
-          html: `
-            <div class="gallery-img-container ${isBig ? 'masonry-big' : 'masonry-sm'}" 
-                 style="animation-delay:${0.10 * idx + 0.23}s; transform:translateY(${extraOffset}px);">
-              <img src="${item.img}" alt="Seismic image ${idx+1}" class="gallery-img" tabindex="0" />
-              <div class="gallery-tooltip">
-                Link to support: <a href="${item.link}" target="_blank" rel="noopener noreferrer">tweet</a>
-              </div>
-            </div>`,
-          height: isBig ? 360 : 210
-        });
-      });
-      
+
+      // Генерация по строкам: всегда строгое слева-направо, сверху-вниз следование
+      for (let row = 0; row < Math.ceil(galleryData.length / colCount); row++) {
+        for (let col = 0; col < colCount; col++) {
+          let idx = row * colCount + col;
+          if (idx >= galleryData.length) break;
+          const item = galleryData[idx];
+          let isBig = (idx % 7 === 0) || ((idx + 3) % 7 === 0);
+          let extraOffset = (Math.random() > 0.5) ? 18 * ((idx % 3) - 1) : 0;
+          columns[col].push({
+            html: `
+              <div class="gallery-img-container ${isBig ? 'masonry-big' : 'masonry-sm'}"
+                   style="animation-delay:${0.10 * idx + 0.23}s; transform:translateY(${extraOffset}px);">
+                <a href="${item.link}" class="gallery-img-link" target="_blank" rel="noopener noreferrer">
+                  <img src="${item.img}" alt="Seismic image ${idx+1}" class="gallery-img" tabindex="0" />
+                </a>
+              </div>`,
+            height: isBig ? 360 : 210
+          });
+        }
+      }
+
       columns.forEach(col => {
         const colDiv = document.createElement('div');
         colDiv.style.display = 'flex';
@@ -432,9 +455,7 @@
         gallery.appendChild(colDiv);
       });
 
-      
       showFooter();
-
       setTimeout(() => { gallery.scrollIntoView({ behavior: 'smooth' }); }, 220);
     }
 
