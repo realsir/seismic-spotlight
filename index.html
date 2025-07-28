@@ -67,7 +67,7 @@
       background: var(--main-color-soft);
       border-radius: 22px;
       box-shadow: 0 8px 38px 6px rgba(155,132,96,0.13);
-      min-width:320px; 
+      min-width:320px;
       max-width:90vw;
       padding: 32px 38px;
       text-align: center;
@@ -100,6 +100,24 @@
     }
     .modal-btn:hover {
       background: linear-gradient(99deg, #d4c1a6 0%, #e7dbb7 100%);
+      transform: scale(1.03);
+    }
+    .support-btn {
+      background: var(--main-gradient);
+      color: var(--text);
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      padding: 13px 44px;
+      font-size: 1.1em;
+      box-shadow: 0 2px 12px #dfc7a6a8;
+      margin-left: 16px;
+      margin-top: 25px;
+      transition: background .18s, color .18s, transform .15s;
+      cursor: pointer;
+    }
+    .support-btn:hover {
+      background: linear-gradient(99deg, #bfc19e 0%, #e9e3ba 100%);
       transform: scale(1.03);
     }
     .gallery-section {
@@ -143,7 +161,6 @@
       z-index: 1;
       position: relative;
       background: #e6dcc1;
-      /* Removal of pointer-events: none; - all link area is clickable */
     }
     .gallery-img-link {
       display: block;
@@ -166,7 +183,6 @@
       transform: scale(1.04);
       z-index: 9;
     }
-    /* Remove the tooltip styles entirely */
     .gallery-tooltip {
       display: none !important;
     }
@@ -250,7 +266,10 @@
   <div class="modal-bg" id="welcomeModal">
     <div class="modal">
       <div class="main-title" style="font-size: 1.5em; margin-bottom: 10px;">Seismic Spotlight</div>
-      <button class="modal-btn" onclick="hideIntro()">Enter Site ↓</button>
+      <div style="display:flex; justify-content:center;">
+        <button class="modal-btn" onclick="hideIntro()">Enter Site ↓</button>
+        <button class="support-btn" onclick="supportTweet()">Support</button>
+      </div>
     </div>
   </div>
   <div id="main-gallery" class="gallery-section"></div>
@@ -312,6 +331,7 @@
       }, 900);
     }
 
+    
     const galleryData = [
       { img: 's1.png', link: 'https://x.com/Amukreksa/status/1947473679958610280' },
       { img: 's2.png', link: 'https://x.com/rivalbahti72821/status/1947347416556179605?s=46' },
@@ -338,7 +358,7 @@
       { img: 's23.png', link: 'https://x.com/0xlKurosaki/status/1937472436255195311' },
       { img: 's24.png', link: 'https://x.com/bestie_ell/status/1936442959051755984' },
       { img: 's25.png', link: 'https://x.com/dangtruong4421/status/1934535648347906251' },
-      { img: 's26.png', link: 'https://x.com/dzulfanfajriiii/status/1935340505245929762' },
+  { img: 's26.png', link: 'https://x.com/dzulfanfajriiii/status/1935340505245929762' },
       { img: 's27.png', link: 'https://x.com/marvoloart/status/1934622023877317038' },
       { img: 's28.png', link: 'https://x.com/lon3ly38/status/1933515164437164257?s=46' },
       { img: 's29.png', link: 'https://x.com/tommyblinder_/status/1933179524054946256' },
@@ -412,19 +432,103 @@
       { img: 's97.png', link: 'https://x.com/nakann23/status/1948633512279765324?s=46&t=iitHdxG_apE47BlIbw2Cng' },
       { img: 's98.png', link: 'https://x.com/gratss31/status/1948557964237045826?s=46' },
       { img: 's99.png', link: 'https://x.com/badjonone/status/1948610599656849464' },
-      { img: 's100.png', link: 'https://x.com/Ijalbiasalah07/status/1948593590370009377' }
+      { img: 's100.png', link: 'https://x.com/Ijalbiasalah07/status/1948593590370009377' },
+{ img: 's101.png', link: 'https://x.com/mzain2292/status/1949736289860813012' },
+{ img: 's102.png', link: 'https://x.com/LilGatez01/status/1949361990922559813' },
+{ img: 's103.png', link: 'https://x.com/zombie_edn/status/1949727283230458189' },
+{ img: 's104.png', link: 'https://x.com/caesertherave/status/1949723578267820217?s=19' },
+{ img: 's105.png', link: 'https://x.com/Artsiom99138804/status/1949721124377432395?t=Fxb80CRN8bIPdkniFchpgw&s=19' },
+{ img: 's106.png', link: 'https://x.com/shanvii27/status/1949719569502740655?t=lYUnbA_rUtscu_j5vnlhPg&s=19' },
+{ img: 's107.png', link: 'https://x.com/thaitea_paw/status/1949717675250458947?t=0a-oKcibEI2FDbq1Ibl8jw&s=19' },
+{ img: 's108.png', link: 'https://x.com/GINA35216734/status/1949715117752430952' },
+{ img: 's109.png', link: 'https://x.com/bl0ck64grandson/status/1949708744700420426?s=46' },
+{ img: 's110.png', link: 'https://x.com/PhuongThanhhj/status/1949708884035371123?t=2vXSz5jMFaea69icygIETQ&s=19' },
+{ img: 's111.png', link: 'https://x.com/LuisGar03165053/status/1949708286854303870' },
+{ img: 's112.png', link: 'https://x.com/doinkptt/status/1949698005696758208?s=61' },
+{ img: 's113.png', link: 'https://x.com/milemo0n/status/1949693133844811995' },
+{ img: 's114.png', link: 'https://x.com/clairrr69/status/1949691797988647278?s=46' },
+{ img: 's115.png', link: 'https://x.com/masbadel_crypto/status/1949690616402850037?t=o9tFfV9PNB70ijyt05hQ8w&s=19' },
+{ img: 's116.png', link: 'https://x.com/nvm_3002/status/1949688364854354181?t=-o_3ApsKWFIiU7y19Z0HdQ&s=19' },
+{ img: 's117.png', link: 'https://x.com/effat_emon/status/1949686670200316307?s=46' },
+{ img: 's118.png', link: 'https://x.com/andre_tucson/status/1949685923232493879' },
+{ img: 's119.png', link: 'https://x.com/sunkisshater/status/1948304413459730826?t=VIfgcherI_y73YbgbVKLsQ&s=19' },
+{ img: 's120.png', link: 'https://x.com/SanjayK12262117/status/1949667215281737782?t=CCNoyOjSVkg13x8DC2ty1g&s=19' },
+{ img: 's121.png', link: 'https://x.com/HasanNahid25288/status/1949665235385934139?t=rlTQuFYGDe1uWcGeLgMo_w&s=19' },
+{ img: 's122.png', link: 'https://x.com/bidogold/status/1949659263665950991' },
+{ img: 's123.png', link: 'https://x.com/berlin_cao/status/1949656124807844249?t=G5SBy5nT20JxTgXaMQnHZw&s=19' },
+{ img: 's124.png', link: 'https://x.com/Crypto_RaZZ/status/1949639617353077001?t=ELhlcqbfeROSYb5u-qZTDg&s=19' },
+{ img: 's125.png', link: 'https://x.com/dmitry_mano/status/1949637699222351925' },
+{ img: 's126.png', link: 'https://x.com/kingzw888/status/1949634431633027279?s=46' },
+{ img: 's127.png', link: 'https://x.com/traderofsoul/status/1949627632523354247?t=OjqerYFacqD1ZQ-U9sxC2w&s=19' },
+{ img: 's128.png', link: 'https://x.com/fsdtope/status/1949627194285715474?s=46' },
+{ img: 's129.png', link: 'https://x.com/affm68290133/status/1949622109782606295?s=46' },
+{ img: 's130.png', link: 'https://x.com/vintage8080/status/1949619986114519178?s=46' },
+{ img: 's131.png', link: 'https://x.com/k2sbhai/status/1949600311246561309' },
+{ img: 's132.png', link: 'https://x.com/minhdao72941401/status/1949601473006113150' },
+{ img: 's133.png', link: 'https://x.com/phamphu56023714/status/1949599564417339863?s=46&t=Om3f_ZG3JrAAXYGC9N24dA' },
+{ img: 's134.png', link: 'https://x.com/marabatayfa/status/1949586945887154640' },
+{ img: 's135.png', link: 'https://x.com/LEEPRICKON/status/1949571883198021734' },
+{ img: 's136.png', link: 'https://x.com/YaroslavPysar/status/1949567422064738367' },
+{ img: 's137.png', link: 'https://x.com/Ludo_Momche/status/1949565358131589442' },
+{ img: 's138.png', link: 'https://x.com/KumalaXduck/status/1949513221884280945' },
+{ img: 's139.png', link: 'https://x.com/Yuri_Keew/status/1949502771457315075' },
+{ img: 's140.png', link: 'https://x.com/cepodr/status/1949497497027559618?t=HnZT_o6-OV6BtrNV0agAJA&s=19' },
+{ img: 's141.png', link: 'https://x.com/13penguinnn/status/1949495018340930030?s=46' },
+{ img: 's142.png', link: 'https://x.com/hijiduatilu12/status/1949484315097944447?s=46' },
+{ img: 's143.png', link: 'https://x.com/frosya121/status/1949483284175438103?s=46' },
+{ img: 's144.png', link: 'https://x.com/ArchanistETH/status/1949473697586450839?t=9wuVWm0-h2QvQxXkjSK13A&s=19' },
+{ img: 's145.png', link: 'https://x.com/Kruz_Uzdyak/status/1949477119781679434' },
+{ img: 's146.png', link: 'https://x.com/cryptocaic/status/1949474936168530165?t=ZRi3ojsaDV8Pd3aNFSE_Lg&s=19' },
+{ img: 's147.png', link: 'https://x.com/EnjelSun/status/1949474095005110535?t=glepiVQtUnnHyn7B6iQzxA&s=19' },
+{ img: 's148.png', link: 'https://x.com/luongdo1/status/1949473504765821294' },
+{ img: 's149.png', link: 'https://x.com/zombie_zet_/status/1949470071211929923' },
+{ img: 's150.png', link: 'https://x.com/ggraayyy/status/1949467700595392591?s=46' }
     ];
 
-    // --- Новый вариант функции для row-wise генерации ---
+    
+    const supportComments = [
+      "im bullish on u & seismic",
+      "very cool seismic believer",
+      "all in seismic",
+      "amazing",
+      "bullish on seismic",
+      "luv it my seismic broh",
+      "insane fam",
+      "SEISMIC ON THE TOP!",
+      "IM BULLISH ON SEISMIC",
+      "glad to see u in seismic",
+      "awesome work for seismic",
+      "megaa coool",
+    ];
+
+    function getTweetIdFromUrl(url) {
+      
+      const match = url.match(/status\/(\d+)/);
+      return match ? match[1] : null;
+    }
+
+    function supportTweet() {
+      
+      const tweet = galleryData[Math.floor(Math.random() * galleryData.length)];
+      const tweetId = getTweetIdFromUrl(tweet.link);
+      if (!tweetId) {
+        alert('Tweet id not found!');
+        return;
+      }
+      
+      const comment = supportComments[Math.floor(Math.random() * supportComments.length)];
+      
+      const url = `https://twitter.com/intent/tweet?in_reply_to=${tweetId}&text=${encodeURIComponent(comment)}`;
+      window.open(url, '_blank');
+    }
+
+    
     function startGallery() {
       const gallery = document.getElementById('main-gallery');
       gallery.innerHTML = '';
       gallery.style.display = 'flex';
-
       const colCount = window.innerWidth < 900 ? 2 : (window.innerWidth < 1400 ? 3 : 5);
       const columns = Array.from({ length: colCount }, () => []);
-
-      // Генерация по строкам: всегда строгое слева-направо, сверху-вниз следование
       for (let row = 0; row < Math.ceil(galleryData.length / colCount); row++) {
         for (let col = 0; col < colCount; col++) {
           let idx = row * colCount + col;
@@ -444,7 +548,6 @@
           });
         }
       }
-
       columns.forEach(col => {
         const colDiv = document.createElement('div');
         colDiv.style.display = 'flex';
@@ -454,7 +557,6 @@
         colDiv.innerHTML = col.map(obj => obj.html).join('');
         gallery.appendChild(colDiv);
       });
-
       showFooter();
       setTimeout(() => { gallery.scrollIntoView({ behavior: 'smooth' }); }, 220);
     }
@@ -470,6 +572,7 @@
 
     document.getElementById('welcomeModal')
       .addEventListener('wheel', e => e.preventDefault(), { passive: false });
+
   </script>
 </body>
 </html>
